@@ -28,8 +28,8 @@ function addSong(){
     }).catch(function(err){
         alert('problem adding song');
         console.log(err); 
-    })
-}
+    }) //end ajax
+} //end addBooks
 
 function getSongs(){
     console.log('in GET getSongs');
