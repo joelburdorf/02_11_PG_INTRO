@@ -3,7 +3,8 @@ console.log('in JS');
 $(document).ready(onReady);
 
 function onReady() {
-    $('#addSongButton').on('click', addSong);  
+    $('#addSongButton').on('click', addSong); 
+    $('#songList').on('click', '.delete', deleteClick);   
     getSongs();
 } // end onReady
 
@@ -39,8 +40,39 @@ function getSongs(){
         url: '/songs'
     }).then(function(response){
         console.log('back from GET with ', response);
+        displaySongs(response);
     }).catch (function (err){
         console.log( err);
         alert ('no worky');
+    })
+}
+
+function displaySongs(responseArray){
+//loop through array
+console.log('test', responseArray);
+$('#songList').empty()
+
+for (let i=0; i<responseArray.length; i++){
+    //append each song to DOM
+    $('#songList').append(`
+   <li data-id="${responseArray[i].id}">(${responseArray[i].id})${responseArray[i].artist} : ${responseArray[i].track} 
+   <button class="delete">Delete</button></li>`);
+    }   
+}
+
+function deleteClick(){
+    console.log('in deleteClick');
+    let selectedId = $(this).parent().data('id');
+    console.log(selectedId);
+    $.ajax({
+        type: 'DELETE',
+        url: `/songs/${selectedId}`
+    }).then(function (response) {
+        console.log('back from GET in /songs/100 with ', response);
+        getSongs();
+        //displaySongs(response);
+    }).catch(function (err) {
+        console.log(err);
+        alert('no worky');
     })
 }

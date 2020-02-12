@@ -27,6 +27,21 @@ console.log('server is up on', port);
 
 //routes
 
+app.delete('/songs/:id', (req, res)=>{
+    console.log('hello from delete/id', req.params.id);
+    // set up a query
+    let queryString = `DELETE FROM songs WHERE "id" = ${req.params.id}`;
+    //try to run query on pool
+    pool.query(queryString).then((results) => {
+        //if sucessful we'll repond with rows from the results
+        res.sendStatus(200);
+    }).catch((err) => {
+        //catch any errors
+        console.log(err);
+        res.sendStatus(500);
+    })
+}); //end /songs GET
+
 app.get('/songs', (req, res )=>{
     console.log('in GET /songs');
     // set up a query
