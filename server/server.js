@@ -42,7 +42,7 @@ app.get('/songs', (req, res )=>{
     })
 }); //end /songs GET
 
-app.post('/songs', (res,req)=>{
+app.post('/songs', (req,res)=>{
     console.log('in /songs', req.body);
     let queryString = 'INSERT INTO songs ("rank", "artist", "track", "published") VALUES ($1, $2, $3, $4)';
     pool.query(queryString, [req.body.rank, req.body.artist, req.body.track, req.body.published]).then((results)=>{
