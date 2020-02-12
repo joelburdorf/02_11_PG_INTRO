@@ -42,4 +42,15 @@ app.get('/songs', (req, res )=>{
     })
 }); //end /songs GET
 
+app.post('/songs', (res,req)=>{
+    console.log('in /songs', req.bodyParser);
+    let queryString = 'INSERT INTO songs ("rank", "artist", "track", "published") VALUES ($1, $2, $3, $4)';
+    pool.query(queryString, [req.body.rank, req.body.artist, req.body.track, req.body.published]).then((results)=>{
+        console.log('track addded to db');
+        res.send(201);
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
 
