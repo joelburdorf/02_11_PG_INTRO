@@ -7,7 +7,6 @@ function onReady() {
     $('#songList').on('click', '.delete', deleteClick);   
     getSongs();
 } // end onReady
-
 function addSong(){
     console.log('in addSong');
     //get user input in an object
@@ -25,13 +24,11 @@ function addSong(){
     }).then(function (response){
         console.log('back from POST', response);
         getSongs();
-        
     }).catch(function(err){
         alert('problem adding song');
         console.log(err); 
     }) //end ajax
 } //end addBooks
-
 function getSongs(){
     console.log('in GET getSongs');
     //make ajax request to GET songs from server
@@ -46,12 +43,9 @@ function getSongs(){
         alert ('no worky');
     })
 }
-
 function displaySongs(responseArray){
 //loop through array
-console.log('test', responseArray);
 $('#songList').empty()
-
 for (let i=0; i<responseArray.length; i++){
     //append each song to DOM
     $('#songList').append(`
@@ -59,18 +53,16 @@ for (let i=0; i<responseArray.length; i++){
    <button class="delete">Delete</button></li>`);
     }   
 }
-
 function deleteClick(){
     console.log('in deleteClick');
     let selectedId = $(this).parent().data('id');
-    console.log(selectedId);
+    console.log('this is the ID selected to delete', selectedId);
     $.ajax({
         type: 'DELETE',
         url: `/songs/${selectedId}`
     }).then(function (response) {
-        console.log('back from GET in /songs/100 with ', response);
+        console.log('response back from DELETE', response);
         getSongs();
-        //displaySongs(response);
     }).catch(function (err) {
         console.log(err);
         alert('no worky');

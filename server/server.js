@@ -28,10 +28,10 @@ console.log('server is up on', port);
 //routes
 
 app.delete('/songs/:id', (req, res)=>{
-    console.log('hello from delete/id', req.params.id);
+    console.log(' req.params.id hello from delete/id', req.params.id);
     // set up a query
     let queryString = `DELETE FROM songs WHERE "id" = ${req.params.id}`;
-    //try to run query on pool
+    // run query on pool
     pool.query(queryString).then((results) => {
         //if sucessful we'll repond with rows from the results
         res.sendStatus(200);
@@ -61,7 +61,7 @@ app.post('/songs', (req,res)=>{
     console.log('in /songs', req.body);
     let queryString = 'INSERT INTO songs ("rank", "artist", "track", "published") VALUES ($1, $2, $3, $4)';
     pool.query(queryString, [req.body.rank, req.body.artist, req.body.track, req.body.published]).then((results)=>{
-        console.log('track addded to db');
+        console.log('track added to db');
         res.sendStatus(201);
     }).catch((err)=>{
         console.log(err);
