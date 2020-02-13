@@ -4,7 +4,7 @@ $(document).ready(onReady);
 
 function onReady() {
     $('#addSongButton').on('click', addSong); 
-    $('#songList').on('click', '.delete', deleteClick);   
+    $('#songList').on('click', '.delete', deleteSongs);   
     getSongs();
 } // end onReady
 function addSong(){
@@ -53,8 +53,8 @@ for (let i=0; i<responseArray.length; i++){
    <button class="delete">Delete</button></li>`);
     }   
 }
-function deleteClick(){
-    console.log('in deleteClick');
+function deleteSongs(){
+    console.log('in deleteSongs');
     let selectedId = $(this).parent().data('id');
     console.log('this is the ID selected to delete', selectedId);
     $.ajax({

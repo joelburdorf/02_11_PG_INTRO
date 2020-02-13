@@ -30,9 +30,9 @@ console.log('server is up on', port);
 app.delete('/songs/:id', (req, res)=>{
     console.log(' req.params.id hello from delete/id', req.params.id);
     // set up a query
-    let queryString = `DELETE FROM songs WHERE "id" = ${req.params.id}`;
+    let queryString = `DELETE FROM "songs" WHERE "id" = ($1)`;
     // run query on pool
-    pool.query(queryString).then((results) => {
+    pool.query(queryString, [req.params.id]).then((results) => {
         //if sucessful we'll repond with rows from the results
         res.sendStatus(200);
     }).catch((err) => {
